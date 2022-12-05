@@ -53,15 +53,23 @@ const getWord = async(req,res)=>{
  }
  const getByCategory = async(req,res)=>{
       try {
-          const wordCount = await Word.countDocuments({categoryId:req.params.id})
           const categoryWords = await Word.find({categoryId:req.params.id})
-          res.status(200).json({categoryWords,wordCount})
+          res.status(200).json({categoryWords})
      } catch (err) {
           return res.status(500).json(err)
      }
  }
+ const searchWord = async (req,res,next)=>{
+     const query = req.query.q
+     try {
+        const words = await Word.find({english:{ $regex:query,$options:'i'}}).limit(40)
+         res.status(200).json(words)
+     } catch (err) {
+        next(err)
+     }
+  }
 
 
- module.exports= {getAllWord,createWord,updateWord,deleteWord,getWord,getByCategory}
+ module.exports= {getAllWord,createWord,updateWord,deleteWord,getWord,getByCategory,searchWord}
 
 

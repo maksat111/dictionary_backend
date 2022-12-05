@@ -4,23 +4,22 @@ const mongoose = require('mongoose')
 const WordSchema = new mongoose.Schema({
     turkmen:{
       type:String,
-      required:true
     },
     english:{
      type:String,
-     required:true,
      max:500
     },
+    example:{
+      type:String,
+    },
     img:{
-     type:String
+     type:String,
     },
     enTrans:{
       type:String,
-      required:true
     },
     tmTrans:{
       type:String,
-      required:true
     },
     categoryId:{
       type:String,

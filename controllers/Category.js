@@ -29,10 +29,22 @@ const getCategory = async(req,res)=>{
          return item._id 
       } )
        const countById = await Promise.all(catId.map(id=>{
-           const sany =  Word.countDocuments({categoryId:id})
-          console.log(sany)
-         return Category.findByIdAndUpdate(id,{count:2}, {new:true})
+           return ({sany:Word.countDocuments({categoryId:id}) })    
     }))
+    
+   //  let merged = []
+   //  for (let i=0; i < catId.length; i++){
+   //    merged.push({
+   //       ...catId[i],
+   //       ...countById[i]
+   //    })
+   //  }
+
+    
+   //  console.log(countById)
+   //   const data = await Promise.all(countById.map((id) =>{
+   //     return Category.populate({count:id}, {new:true})
+   //   }))
 
       res.status(200).json(countById)
    } catch (err) {
