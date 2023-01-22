@@ -24,34 +24,23 @@ const getCategory = async(req,res)=>{
 
  const getAllCategory = async(req,res)=>{
    try {
-      const categories = await Category.find()
-      const catId = categories.map(item=>{
-         return item._id 
-      } )
-       const countById = await Promise.all(catId.map(id=>{
-           return ({sany:Word.countDocuments({categoryId:id}) })    
-    }))
-    
-   //  let merged = []
-   //  for (let i=0; i < catId.length; i++){
-   //    merged.push({
-   //       ...catId[i],
-   //       ...countById[i]
-   //    })
-   //  }
+      const categories = await Category.find();
+      let data = [];
+      for(let i=0; i<categories.length;i++){
+         const count = await Word.countDocuments({
+            categoryId:categories[i]._id
+         }).lean();
+         data.push({
+            count,
+            category:categories[i]
+         })
+      }
 
-    
-   //  console.log(countById)
-   //   const data = await Promise.all(countById.map((id) =>{
-   //     return Category.populate({count:id}, {new:true})
-   //   }))
 
-      res.status(200).json(countById)
+      res.status(200).json(data)
    } catch (err) {
       return res.status(500).json(err)
    }
  }
 
  module.exports= {createCategory,getCategory,getAllCategory}
-
-
