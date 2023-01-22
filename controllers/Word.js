@@ -45,16 +45,20 @@ const getWord = async(req,res)=>{
 
  const getAllWord = async(req,res)=>{
    try {
-      const words = await Word.aggregate([{$sample:{size:7}}]);
-      const allwords =  await Word.aggregate([{$sample:{size:40}}]);;
+      const words = await Word.aggregate([{$sample:{size:10}}]);
+      
+     
+     const allOptions = []
+      for(var i=0; i<words.length; i++){
+          const allwords =  await Word.aggregate([{$sample:{size:40}}]);
       
       const w = await Promise.all(
           allwords.map((i)=>{
               return (i.turkmen);
           })
      );
-     const allOptions = []
-      for(var i=0; i<words.length; i++){
+     console.log(w)
+
            var a = words[i].english
           var j = words[i].turkmen
           var d = [j]
@@ -73,7 +77,7 @@ const getWord = async(req,res)=>{
 
           allOptions.push({a,d})
           
-          console.log(allOptions)
+          // console.log(allOptions)
      }
           
       res.status(200).json(words)
