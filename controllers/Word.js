@@ -42,8 +42,17 @@ const getWord = async(req,res)=>{
        return res.status(500).json(err)
      }
  }
-
+ 
  const getAllWord = async(req,res)=>{
+     try {
+        const words = await Word.find()
+        res.status(200).json(words)
+     } catch (err) {
+       return res.status(500).json(err)
+     }
+ }
+
+ const quiz = async(req,res)=>{
    try {
       const words = await Word.aggregate([{$sample:{size:10}}]);
       
@@ -57,7 +66,6 @@ const getWord = async(req,res)=>{
               return (i.turkmen);
           })
      );
-     console.log(w)
 
            var a = words[i].english
           var j = words[i].turkmen
@@ -77,10 +85,10 @@ const getWord = async(req,res)=>{
 
           allOptions.push({a,d})
           
-          // console.log(allOptions)
+          console.log(allOptions)
      }
           
-      res.status(200).json(words)
+      res.status(200).json(allOptions)
    } catch (err) {
       return res.status(500).json(err)
    }
