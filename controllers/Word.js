@@ -55,11 +55,10 @@ const getWord = async(req,res)=>{
  const quiz = async(req,res)=>{
    try {
       const words = await Word.aggregate([{$sample:{size:10}}]);
-      
      
      const allOptions = []
       for(var i=0; i<words.length; i++){
-          const allwords =  await Word.aggregate([{$sample:{size:40}}]);
+          const allwords =  await Word.aggregate([{$sample:{size:30}}]);
       
       const w = await Promise.all(
           allwords.map((i)=>{
@@ -67,7 +66,7 @@ const getWord = async(req,res)=>{
           })
      );
 
-           var a = words[i].english
+          var a = words[i].english
           var j = words[i].turkmen
           var d = [j]
 
@@ -112,6 +111,6 @@ const getWord = async(req,res)=>{
   }
 
 
- module.exports= {getAllWord,createWord,updateWord,deleteWord,getWord,getByCategory,searchWord}
+ module.exports= {getAllWord,createWord,updateWord,deleteWord,getWord,getByCategory,searchWord,quiz}
 
 

@@ -9,6 +9,7 @@ const wordRoute = require('./routes/word')
 const categoryRoute = require('./routes/category')
 const userRoute = require('./routes/user')
 const questionRoute = require('./routes/question')
+const testRoute = require('./routes/test')
 
 const cors = require('cors')
 dotenv.config()
@@ -50,8 +51,10 @@ app.use('/api/v1/words',wordRoute)
 app.use('/api/v1/category',categoryRoute)
 app.use('/api/v1/users',userRoute)
 app.use('/api/v1/questions',questionRoute)
+app.use("/api/v1/words/quiz", testRoute)
+app.use('/test', (req, res) => res.send(true))
 
 
-app.listen(process.env.PORT || 8080,() => {
+app.listen(process.env.PORT || 80, "192.168.12.72",() => {
     console.log('Backend server is running')
 }) 
