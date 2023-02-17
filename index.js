@@ -11,7 +11,7 @@ const userRoute = require('./routes/user')
 const questionRoute = require('./routes/question')
 const testRoute = require('./routes/test')
 
-const cors = require('cors')
+const cors = require('cors');
 dotenv.config()
 
 mongoose.connect(process.env.MONGO_URL)
