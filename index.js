@@ -57,5 +57,5 @@ app.use('/test', (req, res) => res.send(true))
 const PORT = process.env.PORT || 80;
 
 app.listen(PORT, () => {
-    console.log(`Backend server is running on http://localhost:${PORT}`)
+    console.log(`Backend server is running on port ${PORT}`)
 }) 
