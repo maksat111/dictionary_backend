@@ -1,10 +1,8 @@
 const mongoose = require('mongoose')
 
 const QuizSchema = new mongoose.Schema({
-    deviceId: {
+    device_id: {
         type: String,
-        required: true,
-        unique: true
     },
     questions: {
         type: Array,

@@ -37,13 +37,15 @@ const createQuiz = async (req, res) => {
             console.log(allOptions)
         }
 
+
+
         const newQuiz = new Quiz({
-            deviceId,
+            device_id: deviceId,
             questions: allOptions
         });
 
-        const savedQuiz = await newQuiz.save();
-        res.status(200).json(savedQuiz);
+
+        await newQuiz.save().then(() => res.status(200).json(allOptions)).catch((err) => res.status(500).json(err));
     } catch (err) {
         return res.status(500).json(err)
     }
@@ -52,7 +54,7 @@ const createQuiz = async (req, res) => {
 const getListOfQuizs = async (req, res) => {
     try {
         const deviceId = req.query.deviceId;
-        const quizs = await Quiz.find({ deviceId });
+        const quizs = await Quiz.find({ device_id: deviceId });
         res.status(200).json(quizs);
     } catch (err) {
         res.status(500).json(err)
@@ -70,13 +72,31 @@ const getQuestionsOfQuiz = async (req, res) => {
 }
 
 
-const resultCheck = async () => {
+const confirmResult = async (req, res) => {
     try {
         const result = req.body;
-        console.log(result)
+        const deviceId = req.query.deviceId;
+        const quizId = req.query.quizId;
+        const updated = await Quiz.updateOne({ _id: quizId }, { $set: { correctAnswers: result } });
+
+        result.forEach(async item => {
+            const founded = await Word.findOne({ english: item });
+            const foundedDeviceIndex = founded.correctCounter?.findIndex(element => element.device_id == deviceId);
+            if (foundedDeviceIndex == -1) {
+                await Word.updateOne(
+                    { english: item },
+                    { $push: { correctCounter: { device_id: deviceId, correctAnswered: 1 } } },
+                );
+            } else {
+                founded.correctCounter[foundedDeviceIndex].correctAnswered++;
+                await Word.updateOne({ _id: founded._id }, { correctCounter: founded.correctCounter });
+            }
+        });
+
+        res.status(200).send("succesfully confirmed!")
     } catch (err) {
         res.status(500).json(err)
     }
 }
 
-module.exports = { getListOfQuizs, getQuestionsOfQuiz, createQuiz, resultCheck };
+module.exports = { getListOfQuizs, getQuestionsOfQuiz, createQuiz, confirmResult };
