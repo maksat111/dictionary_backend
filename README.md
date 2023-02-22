@@ -1,6 +1,6 @@
 `GET` api/v1/quiz/createQuiz?deviceId=???   =>  get quiz
 
-`POST` api/v1/quiz/confirmResult?deviceId=???&&quizId=??? => get quiz. Body must contain correctly answered english words => 
+`POST` api/v1/quiz/confirmResult?deviceId=???&&quizId=??? => confirm quiz. Body must contain correctly answered english words => 
 `body` ["apple", "orange", "ice", "king"] 
 
 
