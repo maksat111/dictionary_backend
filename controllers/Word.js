@@ -1,3 +1,4 @@
+const { find } = require('../models/Question');
 const Word = require('../models/Word');
 
 const createWord = async (req, res) => {
@@ -70,5 +71,16 @@ const searchWord = async (req, res, next) => {
      }
 }
 
+const getLearnedWords = async (req, res) => {
+     try {
+          const deviceId = req.query.deviceId;
 
-module.exports = { getAllWord, createWord, updateWord, deleteWord, getWord, getByCategory, searchWord }
+          const foundWords = await Word.find({ "correct_counter.device_id": deviceId, "correct_counter.correctAnswered": { $gt: 2 } });
+          res.status(200).json(foundWords)
+     } catch (err) {
+          res.status(500).json(err);
+     }
+}
+
+
+module.exports = { getAllWord, createWord, updateWord, deleteWord, getWord, getByCategory, searchWord, getLearnedWords }

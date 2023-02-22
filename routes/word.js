@@ -1,9 +1,10 @@
 const express = require('express');
-const { getAllWord, createWord, updateWord, deleteWord, getWord, getByCategory, searchWord } = require('../controllers/Word');
+const { getAllWord, createWord, updateWord, deleteWord, getWord, getByCategory, searchWord, getLearnedWords } = require('../controllers/Word');
 
 
 const router = express.Router();
 
+router.get('/learnedWords', getLearnedWords);
 router.post('/', createWord)
 router.put('/:id', updateWord)
 router.delete('/:id', deleteWord)
