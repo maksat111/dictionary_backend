@@ -2,36 +2,44 @@ const mongoose = require('mongoose')
 
 
 const WordSchema = new mongoose.Schema({
-    turkmen:{
-      type:String,
-    },
-    english:{
-     type:String,
-     max:500
-    },
-    example:{
-      type:String,
-    },
-    img:{
-     type:String,
-    },
-    enTrans:{
-      type:String,
-    },
-    tmTrans:{
-      type:String,
-    },
-    categoryId:{
-      type:String,
-    },
-    enAudio:{
-      type:String,
-    },
-    tmAudio:{
-      type:String,
-    },
+  turkmen: {
+    type: String,
+  },
+  english: {
+    type: String,
+    max: 500
+  },
+  example: {
+    type: String,
+  },
+  img: {
+    type: String,
+  },
+  enTrans: {
+    type: String,
+  },
+  tmTrans: {
+    type: String,
+  },
+  categoryId: {
+    type: String,
+  },
+  enAudio: {
+    type: String,
+  },
+  tmAudio: {
+    type: String,
+  },
+  correctCounter: {
+    devices: [
+      {
+        deviceId: { type: String },
+        correctAnswered: { type: Number, default: 0 }
+      }
+    ]
+  }
 },
-{timestamps:true}
+  { timestamps: true }
 )
 
-module.exports = mongoose.model('words',WordSchema)
+module.exports = mongoose.model('words', WordSchema)

@@ -1,9 +1,9 @@
 const express = require('express');
-const { quiz } = require('../controllers/Word')
+const { createQuiz } = require('../controllers/QuizController')
 
 const router = express.Router();
 
-router.get('/test', quiz)
+router.get('/test', createQuiz);
 
 
 module.exports = router;
