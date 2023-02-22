@@ -81,15 +81,16 @@ const confirmResult = async (req, res) => {
 
         result.forEach(async item => {
             const founded = await Word.findOne({ english: item });
-            const foundedDeviceIndex = founded.correctCounter?.findIndex(element => element.device_id == deviceId);
+            console.log(founded);
+            const foundedDeviceIndex = founded.correct_counter?.findIndex(element => element.device_id == deviceId);
             if (foundedDeviceIndex == -1) {
                 await Word.updateOne(
                     { english: item },
-                    { $push: { correctCounter: { device_id: deviceId, correctAnswered: 1 } } },
+                    { $push: { correct_counter: { device_id: deviceId, correctAnswered: 1 } } },
                 );
             } else {
-                founded.correctCounter[foundedDeviceIndex].correctAnswered++;
-                await Word.updateOne({ _id: founded._id }, { correctCounter: founded.correctCounter });
+                founded.correct_counter[foundedDeviceIndex].correctAnswered++;
+                await Word.updateOne({ _id: founded._id }, { correct_counter: founded.correct_counter });
             }
         });
 

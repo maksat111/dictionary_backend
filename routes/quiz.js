@@ -6,6 +6,6 @@ const router = express.Router();
 router.get('/createQuiz', createQuiz);
 router.get('/quizList', getListOfQuizs);
 router.get('/quizQuestions', getQuestionsOfQuiz);
-router.post('/resultCheck', confirmResult);
+router.post('/confirmResult', confirmResult);
 
 module.exports = router;

@@ -30,10 +30,10 @@ const WordSchema = new mongoose.Schema({
   tmAudio: {
     type: String,
   },
-  correctCounter: [
+  correct_counter: [
     {
       device_id: { type: String },
-      correctAnswered: { type: Number, default: 0 }
+      correctAnswered: { type: Number }
     }
   ]
 },
