@@ -1,6 +1,6 @@
 `GET` api/v1/quiz/createQuiz?deviceId=???   =>  get quiz
 
-`POST` api/v1/quiz/confirmResult?deviceId=???&quizId=??? => get quiz
+`POST` api/v1/quiz/confirmResult?deviceId=???&&quizId=??? => get quiz
 
 `GET` api/v1/quiz/quizlist?deviceId=??? => get quizs of device
 
