@@ -44,8 +44,8 @@ const createQuiz = async (req, res) => {
             questions: allOptions
         });
 
-
-        await newQuiz.save().then(() => res.status(200).json(allOptions)).catch((err) => res.status(500).json(err));
+        const savedQuiz = await newQuiz.save();
+        res.status(200).json(savedQuiz);
     } catch (err) {
         return res.status(500).json(err)
     }
