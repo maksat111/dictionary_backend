@@ -1,7 +1,4 @@
 const Word = require('../models/Word');
-const Category = require('../models/Category');
-const Quiz = require('../models/Quiz');
-
 
 const createWord = async (req, res) => {
      const newWord = new Word(req.body);
@@ -75,5 +72,3 @@ const searchWord = async (req, res, next) => {
 
 
 module.exports = { getAllWord, createWord, updateWord, deleteWord, getWord, getByCategory, searchWord }
-
-

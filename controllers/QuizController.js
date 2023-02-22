@@ -43,7 +43,7 @@ const createQuiz = async (req, res) => {
         });
 
         const savedQuiz = await newQuiz.save();
-        res.status(200).json(allOptions);
+        res.status(200).json(savedQuiz);
     } catch (err) {
         return res.status(500).json(err)
     }
@@ -70,5 +70,13 @@ const getQuestionsOfQuiz = async (req, res) => {
 }
 
 
+const resultCheck = async () => {
+    try {
+        const result = req.body;
+        console.log(result)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
 
-module.exports = { getListOfQuizs, getQuestionsOfQuiz, createQuiz };
+module.exports = { getListOfQuizs, getQuestionsOfQuiz, createQuiz, resultCheck };
