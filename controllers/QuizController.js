@@ -33,8 +33,6 @@ const createQuiz = async (req, res) => {
             }
 
             allOptions.push({ a, d })
-
-            console.log(allOptions)
         }
 
 
@@ -45,6 +43,7 @@ const createQuiz = async (req, res) => {
         });
 
         const savedQuiz = await newQuiz.save();
+
         res.status(200).json(savedQuiz);
     } catch (err) {
         return res.status(500).json(err)
@@ -77,12 +76,13 @@ const confirmResult = async (req, res) => {
         const result = req.body;
         const deviceId = req.query.deviceId;
         const quizId = req.query.quizId;
-        const updated = await Quiz.updateOne({ _id: quizId }, { $set: { correctAnswers: result } });
+
+        await Quiz.updateOne({ _id: quizId }, { $set: { correctAnswers: result } });
 
         result.forEach(async item => {
             const founded = await Word.findOne({ english: item });
-            console.log(founded);
-            const foundedDeviceIndex = founded.correct_counter?.findIndex(element => element.device_id == deviceId);
+            const foundedDeviceIndex = founded.correct_counter.findIndex(element => element.device_id == deviceId);
+
             if (foundedDeviceIndex == -1) {
                 await Word.updateOne(
                     { english: item },
