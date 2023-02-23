@@ -75,7 +75,12 @@ const getLearnedWords = async (req, res) => {
      try {
           const deviceId = req.query.deviceId;
 
-          const foundWords = await Word.find({ "correct_counter.device_id": deviceId, "correct_counter.correctAnswered": { $gt: 2 } });
+          let foundWords = await Word.find({ "correct_counter.device_id": deviceId, "correct_counter.correctAnswered": { $gt: 2 } });
+
+          foundWords.forEach(element => {
+               element.correct_counter = undefined
+          });
+
           res.status(200).json(foundWords)
      } catch (err) {
           res.status(500).json(err);
