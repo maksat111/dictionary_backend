@@ -1,4 +1,3 @@
-const { find } = require('../models/Question');
 const Word = require('../models/Word');
 
 const createWord = async (req, res) => {
